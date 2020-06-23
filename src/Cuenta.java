@@ -15,12 +15,16 @@ public class Cuenta {
 		return this.cuenta;
 	}
 
-	public boolean esValida() {
+	public String esValida() {
 
+		if(cuenta.contains("?")) {
+			return " ILL";
+		}
+		
 		if (sumaRecursiva(cuenta.length(), cuenta.toCharArray()) % 11 == 0) {
-			return true;
+			return "";
 		} else {
-			return false;
+			return " ERR";
 		}
 
 	}
@@ -30,6 +34,7 @@ public class Cuenta {
 		if (n == 0) {
 			return 0;
 		} else {
+			 	
 			int digito = Integer.valueOf(String.valueOf(digitos[digitos.length - n]));
 			return (digito * n) + sumaRecursiva(n - 1, digitos);
 		}

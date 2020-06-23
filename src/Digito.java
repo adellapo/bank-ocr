@@ -18,49 +18,50 @@ public class Digito {
 		}
 	}
 
-	public int decodificar() {
+	public String decodificar() {
 
-		int nro = 0;
+		String d = "";
+		
 		String digitoPlano = "";
 
 		digitoPlano = String.copyValueOf(digito[0]) + String.copyValueOf(digito[1]) + String.copyValueOf(digito[2]);
 
 		switch (digitoPlano) {
 		case "     |  |":
-			nro = 1;
+			d = "1";
 			break;
 		case " _  _||_ ":
-			nro = 2;
+			d = "2";
 			break;
 		case " _  _| _|":
-			nro = 3;
+			d = "3";
 			break;
 		case "   |_|  |":
-			nro = 4;
+			d = "4";
 			break;
 		case " _ |_  _|":
-			nro = 5;
+			d = "5";
 			break;
 		case " _ |_ |_|":
-			nro = 6;
+			d = "6";
 			break;
 		case " _   |  |":
-			nro = 7;
+			d = "7";
 			break;
 		case " _ |_||_|":
-			nro = 8;
+			d = "8";
 			break;
 		case " _ |_| _|":
-			nro =9;
+			d ="9";
 			break;
 		case " _ | ||_|":
-			nro = 0;
+			d = "0";
 			break;
 		default:
-			nro = -1;
+			d = "?";
 		}
 
-		return nro;
+		return d;
 
 	}
 }

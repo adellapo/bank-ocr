@@ -11,58 +11,45 @@ public class Aplicacion {
 		FileOutputStream fos = new FileOutputStream("output.txt");
 
 		Lector lector = new Lector();
-		ArrayList<String> cuentas = lector.leer(fis);
+		ArrayList<Cuenta> cuentas = lector.leerCuentas(fis);
 
 		guardarCuentas(fos, cuentas);
 
-		cuentas.forEach(c -> {
-			System.out.println("cuenta: " + c + "\tvalidacion: " + validar(c));
-			;
-		});
-	}
-
-	public static boolean validar(String cuenta) {
-
-		if (sumaRecursiva(cuenta.length(), cuenta.toCharArray()) % 11 == 0) {
-			return true;
-		} else {
-			return false;
-		}
+//		cuentas.forEach(c -> {
+//			System.out.println("cuenta: " + c.getCuenta() + "\tvalidacion: " + c.esValida());
+//			;
+//		});
 
 	}
 
-	public static int sumaRecursiva(int n, char digitos[]) {
+	public static void guardarCuentas(FileOutputStream fos, ArrayList<Cuenta> cuentas) throws IOException {
 
-		if (n == 0) {
-			return 0;
-		} else {
-			int digito = Integer.valueOf(String.valueOf(digitos[digitos.length - n]));
-			return (digito * n) + sumaRecursiva(n - 1, digitos);
-		}
-	}
-
-	public static void guardarCuentas(FileOutputStream fos, ArrayList<String> cuentas) {
 		try {
 
 			cuentas.forEach(c -> {
-				c.chars().forEach(chr -> {
+
+				// concateno el nro de cuenta con su validacion
+				(c.getCuenta() + c.esValida()).chars().forEach(chr -> {
 
 					try {
+
 						fos.write((char) chr);
+
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
 				});
 
 				try {
+
+					// salto de linea
 					fos.write(13);
+
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("CUENTA: [" + c + "]");
+
 			});
 
 		} catch (Exception e) {

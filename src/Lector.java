@@ -20,16 +20,16 @@ public class Lector {
 	private Digito[] digitos = crearDigitos();
 	private String cuenta = "";
 
-	public ArrayList<String> leer(FileInputStream fis) throws IOException {
+	public ArrayList<Cuenta> leerCuentas(FileInputStream fis) throws IOException {
 
-		ArrayList<String> cuentas = new ArrayList<String>();
+		ArrayList<Cuenta> cuentas = new ArrayList<>();
 		
 		while (fis.available() > 0) {
 
 			// leo el siguiente caracter
 			c = (char) fis.read();
 
-			// analizo el caracter
+			// analizo el caracter leido
 			switch (c) {
 
 			case CHR_RETORNOCARRO:
@@ -41,7 +41,7 @@ public class Lector {
 				digitoActual = 0;
 				if (iContador == 4) {
 					cuenta = obtenerCuenta(digitos);
-					cuentas.add(cuenta);
+					cuentas.add(new Cuenta(cuenta));
 					nuevaCuenta();
 				}
 				break;
@@ -72,7 +72,7 @@ public class Lector {
 		String cuenta = "";
 
 		for (Digito d : digitos) {
-			cuenta = cuenta + String.valueOf(d.decodificar());
+			cuenta = cuenta + d.decodificar();
 		}
 
 		return cuenta;
