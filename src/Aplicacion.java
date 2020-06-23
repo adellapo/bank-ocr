@@ -1,10 +1,7 @@
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Aplicacion {
 
@@ -17,36 +14,36 @@ public class Aplicacion {
 		ArrayList<String> cuentas = lector.leer(fis);
 
 		guardarCuentas(fos, cuentas);
-		
-		cuentas.forEach(c -> chequearSuma(c));
+
+		cuentas.forEach(c -> {
+			System.out.println("cuenta: " + c + "\tvalidacion: " + validar(c));
+			;
+		});
 	}
 
-	public static void chequearSuma(String cuenta) {
+	public static boolean validar(String cuenta) {
 
-		int nros[] = new int[9];
-		int sumatoria = 0;
-
-		for (int i = 0; i < cuenta.length(); i++) {
-			sumatoria += (i + 1) * Character.getNumericValue(cuenta.charAt(i));
-		}
-
-		System.out
-				.println(cuenta + ": SUMATORIA = " + sumatoria + " - " + (sumatoria % 11 == 0 ? "VALIDA" : "INVALIDA"));
-
-	}
-
-	public int calcular(int numero) {
-		if (numero <= 1) {
-			return 1;
+		if (sumaRecursiva(cuenta.length(), cuenta.toCharArray()) % 11 == 0) {
+			return true;
 		} else {
+			return false;
+		}
 
+	}
+
+	public static int sumaRecursiva(int n, char digitos[]) {
+
+		if (n == 0) {
 			return 0;
+		} else {
+			int digito = Integer.valueOf(String.valueOf(digitos[digitos.length - n]));
+			return (digito * n) + sumaRecursiva(n - 1, digitos);
 		}
 	}
-	
-	public static void guardarCuentas(FileOutputStream fos, ArrayList<String>cuentas) {
+
+	public static void guardarCuentas(FileOutputStream fos, ArrayList<String> cuentas) {
 		try {
-			
+
 			cuentas.forEach(c -> {
 				c.chars().forEach(chr -> {
 
@@ -58,7 +55,7 @@ public class Aplicacion {
 					}
 
 				});
-				
+
 				try {
 					fos.write(13);
 				} catch (IOException e) {
@@ -67,10 +64,10 @@ public class Aplicacion {
 				}
 				System.out.println("CUENTA: [" + c + "]");
 			});
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }
