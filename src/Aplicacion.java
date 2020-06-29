@@ -15,11 +15,6 @@ public class Aplicacion {
 
 		guardarCuentas(fos, cuentas);
 
-//		cuentas.forEach(c -> {
-//			System.out.println("cuenta: " + c.getCuenta() + "\tvalidacion: " + c.esValida());
-//			;
-//		});
-
 	}
 
 	public static void guardarCuentas(FileOutputStream fos, ArrayList<Cuenta> cuentas) throws IOException {
